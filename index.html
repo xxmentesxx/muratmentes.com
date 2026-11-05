@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Murat Menteş (MENTECH) | Yaptıklarım</title>
+  <meta name="description" content="Murat Menteş (MENTECH / xxmentesxx) kişisel proje arşivi. Sırf zevkine tasarladığım 3D modeller, ESP32 robotik projeler ve açık kaynak kodlar.">
+  <style>
+    :root {
+      --bg: #0f1115;
+      --surface: #171a21;
+      --border: #262b36;
+      --text: #eef2f6;
+      --muted: #94a3b8;
+      --accent: #ff5e36;
+      --accent-soft: rgba(255, 94, 54, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.55;
+      padding: 0 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* Üst Kısım */
+    header {
+      padding: 56px 0 36px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .identity {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+      background: var(--surface);
+    }
+
+    .identity-text h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .identity-text .handle {
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-left: 6px;
+    }
+
+    .identity-text p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 4px;
+    }
+
+    .top-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .btn-creality {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-creality:hover {
+      background: #ff7452;
+      transform: translateY(-1px);
+    }
+
+    .btn-github {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-github:hover {
+      border-color: var(--muted);
+      transform: translateY(-1px);
+    }
+
+    /* Bölüm Başlıkları */
+    .section-head {
+      margin: 40px 0 18px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .section-head h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    .section-head span {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* Proje Kartları (Gerçek Veriler) */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: #3b4354;
+      transform: translateY(-2px);
+    }
+
+    .card-media {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: #12141a;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-meta {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-actions a {
+      flex: 1;
+      min-width: 85px;
+      text-align: center;
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .card-actions a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .card-actions a.primary-link {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: transparent;
+    }
+
+    .card-actions a.primary-link:hover {
+      border-color: var(--accent);
+    }
+
+    /* Diğer GitHub Kodları (Kompakt Liste) */
+    .mini-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 14px;
+    }
+
+    .mini-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.15s ease;
+    }
+
+    .mini-item:hover {
+      border-color: var(--muted);
+    }
+
+    .mini-item h3 {
+      font-size: 0.98rem;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .mini-item p {
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+
+    .mini-arrow {
+      color: var(--muted);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    footer {
+      margin-top: 56px;
+      padding: 28px 0 40px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- KİMLİK & PROFİL LİNKLERİ -->
+    <header>
+      <div class="identity">
+        <img class="avatar" src="https://pic2-cdn.creality.com/crealityCloud/upload/2d9131f3d96e79b6200f7796d36c3368.gif" alt="Murat Menteş (MENTECH)">
+        <div class="identity-text">
+          <h1>Murat Menteş <span class="handle">MENTECH</span></h1>
+          <p>"He's trying to design something fun." — Kendi zevkime yaptığım 3D tasarımlar ve elektronik projeler.</p>
+        </div>
+      </div>
+
+      <div class="top-links">
+        <a href="https://www.crealitycloud.com/user/3432421472/model" target="_blank" rel="noopener" class="btn btn-creality">
+          Creality Cloud (33 Model)
+        </a>
+        <a href="https://github.com/xxmentesxx" target="_blank" rel="noopener" class="btn btn-github">
+          GitHub (@xxmentesxx)
+        </a>
+      </div>
+    </header>
+
+    <!-- YAYINLANMIŞ GERÇEK PROJELER -->
+    <div class="section-head">
+      <h2>Projeler & 3D Modeller</h2>
+      <span>Creality Cloud ve GitHub'da paylaştığım çalışmalarım</span>
+    </div>
+
+    <div class="grid">
+      <!-- 1. OwnOwl -->
+      <article class="card">
+        <div class="card-media">
+          <img src="https://pic2-cdn.creality.com/crealityCloud/upload/7e27e838160f5be1c58ec91fa12aad5a.gif" alt="OwnOwl - 3D Printed AI Pet" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div class="card-meta">ESP32-S3 + ESP32-CAM · 3D Baskı</div>
+          <h3 class="card-title">OwnOwl – 3D Printed Pet</h3>
+          <p class="card-desc">
+            Çift mikrodenetleyici ile çalışan, kamera modülüyle çevrimdışı yüz takibi yapan, çift TFT ekran gözlü ve motorlu masaüstü robot dostu.
+          </p>
+          <div class="card-actions">
+            <a href="https://www.crealitycloud.com/model-detail/69dfc804043ef052a5274bd5" target="_blank" rel="noopener" class="primary-link">3D Model</a>
+            <a href="https://github.com/xxmentesxx/OwnOwl" target="_blank" rel="noopener">GitHub Kodları</a>
+            <a href="https://youtube.com/shorts/lT2aZSD9aYQ" target="_blank" rel="noopener">Video</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. ROBOTOP -->
+      <article class="card">
+        <div class="card-media">
+          <img src="https://pic2-cdn.creality.com/crealityCloud/upload/dd7da8709d7cc2fa61694bec573b2304.webp" alt="ROBOTOP Masaüstü Robot Süpürge" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div class="card-meta">ESP32-S3 · ToF Lazer · Otonom</div>
+          <h3 class="card-title">ROBOTOP – Masaüstü Süpürge</h3>
+          <p class="card-desc">
+            Vakum pervanesinden toz haznesine kadar tamamen 3D baskı olan, lazer engel ve düşme sensörlü otonom masaüstü robot süpürge.
+          </p>
+          <div class="card-actions">
+            <a href="https://www.crealitycloud.com/model-detail/robotop-robo-vacuum-cleaner-desk-top" target="_blank" rel="noopener" class="primary-link">3D Model</a>
+            <a href="https://github.com/xxmentesxx/ROBOTOP" target="_blank" rel="noopener">GitHub Kodları</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. DIY Photogrammetry 3D Scanner -->
+      <article class="card">
+        <div class="card-media">
+          <img src="https://pic2-cdn.creality.com/crealityCloud/upload/82cd411e5affc1f89748bfd183c5b0ac.gif" alt="DIY Photogrammetry Station" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div class="card-meta">ESP32 · Python (Flask) · Geri Dönüşüm</div>
+          <h3 class="card-title">DIY Photogrammetry 3D Scanner</h3>
+          <p class="card-desc">
+            Hurda tarayıcı parçalarıyla yaptığım, döner tabla ile dikey asansörü senkronize edip telefon kamerasıyla otomatik tarama yapan istasyon.
+          </p>
+          <div class="card-actions">
+            <a href="https://www.crealitycloud.com/model-detail/diy-photogrammetry-station" target="_blank" rel="noopener" class="primary-link">3D Model</a>
+            <a href="https://github.com/xxmentesxx/DIY-Photogrammetry-3D-Scanner" target="_blank" rel="noopener">GitHub Kodları</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4. Rocker Head Printer Mount -->
+      <article class="card">
+        <div class="card-media">
+          <img src="https://pic2-cdn.creality.com/crealityCloud/upload/ab8571bec0f68cb9788ad673e25bc66d.gif" alt="Rocker Head Printer Mount" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div class="card-meta">Mekanik Tasarım · Çok Renkli (CFS)</div>
+          <h3 class="card-title">Rocker Head Printer Mount</h3>
+          <p class="card-desc">
+            Pil veya motor olmadan, 3D yazıcının X/Y hareketlerinin titreşimiyle ritim tutarak kafa sallayan yaprak yaylı modüler yazıcı aksesuarı.
+          </p>
+          <div class="card-actions">
+            <a href="https://www.crealitycloud.com/model-detail/rocker-head-printer-mount" target="_blank" rel="noopener" class="primary-link">Creality Cloud'da İncele</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5. Pisa Tower Pencil & Phone Holder -->
+      <article class="card">
+        <div class="card-media">
+          <img src="https://pic2-cdn.creality.com/crealityCloud/upload/ce1c5f4f47e61cfe7cda8f6ca09fa38e.webp" alt="Pisa Tower Pencil & Phone Holder" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div class="card-meta">Masaüstü Aksesuar · 400+ İndirme</div>
+          <h3 class="card-title">Pisa Tower: Kalemlik & Telefon Standı</h3>
+          <p class="card-desc">
+            Masaüstü için tasarladığım, hem kalemlik hem de telefon tutucu olarak kullanılan özelleştirilebilir Pisa Kulesi modeli.
+          </p>
+          <div class="card-actions">
+            <a href="https://www.crealitycloud.com/model-detail/pisa-tower-pencil-phone-holder-customizable" target="_blank" rel="noopener" class="primary-link">Creality Cloud'da İncele</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6. Tüm Creality Cloud Koleksiyonu -->
+      <article class="card">
+        <div class="card-media">
+          <img src="https://pic2-cdn.creality.com/crealityCloud/upload/ca997fa1e2a160784b29b615711297c6.jpeg" alt="MENTECH Creality Cloud Profili" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div class="card-meta">Creality Cloud · 33 Model</div>
+          <h3 class="card-title">Diğer Tüm 3D Modellerim</h3>
+          <p class="card-desc">
+            Kalibrasyon plakaları, günlük hayatı kolaylaştıran aparatlar ve eğlenceli figürler dahil paylaştığım diğer tüm STL/3MF dosyaları.
+          </p>
+          <div class="card-actions">
+            <a href="https://www.crealitycloud.com/user/3432421472/model" target="_blank" rel="noopener" class="primary-link">Tüm Modelleri Gör (33)</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- DİĞER GITHUB REPOLARI -->
+    <div class="section-head">
+      <h2>Diğer Kodlar & Araçlar</h2>
+      <span>GitHub üzerindeki diğer açık kaynak çalışmalarım</span>
+    </div>
+
+    <div class="mini-list">
+      <a href="https://github.com/xxmentesxx/BLDC_Driver" target="_blank" rel="noopener" class="mini-item">
+        <div>
+          <h3>BLDC_Driver</h3>
+          <p>10x10cm pertinaks üzerinde interaktif, adım adım BLDC motor sürücü lehimleme rehberi.</p>
+        </div>
+        <span class="mini-arrow">↗</span>
+      </a>
+
+      <a href="https://github.com/xxmentesxx/smart-station" target="_blank" rel="noopener" class="mini-item">
+        <div>
+          <h3>smart-station & AI-Robot</h3>
+          <p>ESP32 tabanlı projeler için hazırladığım mobil uyumlu "Robot Beyni" web kontrol arayüzü.</p>
+        </div>
+        <span class="mini-arrow">↗</span>
+      </a>
+    </div>
+
+    <footer>
+      muratmentes.com · <a href="https://github.com/xxmentesxx" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.crealitycloud.com/user/3432421472/model" target="_blank" rel="noopener">Creality Cloud</a>
+    </footer>
+  </div>
+
+</body>
+</html>
